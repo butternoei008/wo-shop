@@ -11,9 +11,10 @@
       <v-row justify="center">
         <v-text-field
           solo
-          label="Search"
+          label="Search product name"
           prepend-inner-icon="mdi-magnify"
           style="max-width: 1000px"
+          v-model="keyword"
         ></v-text-field>
       </v-row>
       <v-row>
@@ -52,16 +53,20 @@ export default {
           "https://images.unsplash.com/photo-1586116194455-5e6d5d426c7e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80",
         captionColor: "#000",
       },
+      keyword: '',
+      products: []
     };
   },
   computed: {
     ...mapGetters(["allProduct"]),
   },
+  mounted() {
+    this.products = this.allProduct
+  },
   methods: {
     addProductToCart(product) {
-      console.log(product);
       this.$store.dispatch(ADD_CART_PRODUCT, product);
-    },
+    }
   },
   filters: {
     totHB: (price) => {

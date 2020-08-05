@@ -1,43 +1,34 @@
 <template>
   <v-app>
-    <v-app-bar app color="primary" dark>
-      <div class="d-flex align-center">
-        <router-link to="/">
-          <v-img
-            alt="Vuetify Logo"
-            class="shrink mr-2"
-            contain
-            :src="logo"
-            transition="scale-transition"
-            width="150"
-          />
-        </router-link>
-      </div>
-
-      <v-spacer></v-spacer>
-
-      <router-link to="/cart">
-        <v-btn text>
-          <v-badge color="green" content="6">
-            <v-icon>mdi-cart-minus</v-icon>
-          </v-badge>
-        </v-btn>
-      </router-link>
-    </v-app-bar>
-
+    <Navbar :cartBage="cartBage" />
     <v-main>
       <router-view />
     </v-main>
+    <v-footer color="primary white--text">
+      <v-col class="text-center">© WO-SHOP 2020</v-col>
+    </v-footer>
   </v-app>
 </template>
 
 <script>
-import logo from "@/assets/logo.svg";
+import { mapGetters } from 'vuex'
+import Navbar from './components/layouts/Navbar'
 
 export default {
   name: "App",
-  data: () => ({
-    logo: logo,
-  }),
+  components: {
+    Navbar
+  },
+  data() {
+    return {
+      amount: 0
+    }
+  },
+  computed: {
+    ...mapGetters(['itemInCart']),
+    cartBage() {
+      return this.itemInCart.length
+    }
+  }
 };
 </script>

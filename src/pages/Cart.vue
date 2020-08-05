@@ -11,7 +11,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="item in itemInCart" :key="item.id">
+              <tr v-for="(item, index) in itemInCart" :key="index">
                 <td>
                   <v-img width="100" :src="item.img" alt />
                 </td>
