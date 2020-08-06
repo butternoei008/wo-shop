@@ -17,6 +17,8 @@
                 </td>
                 <td>{{ item.name }}</td>
                 <td>{{ item.price }}</td>
+                <td>{{ item.qty }}</td>
+                <td>{{ item.total }}</td>
                 <td>
                   <v-btn @click="removeCart(item.id)">
                     <v-icon>mdi-trash-can-outline</v-icon>
@@ -45,8 +47,10 @@ export default {
       headers: [
         { text: "Image", value: "img" },
         { text: "Name", value: "name" },
-        { text: "price", value: "price" },
-        { text: "action" },
+        { text: "Price", value: "price" },
+        { text: "Quantity", value: "qty" },
+        { text: "Total", value: "total" },
+        { text: "Action" },
       ],
     };
   },
@@ -54,7 +58,7 @@ export default {
     ...mapGetters(["itemInCart"]),
     total() {
       return this.itemInCart.reduce((total, item) => {
-        return total + parseFloat(item.price);
+        return total + parseFloat(item.total);
       }, 0);
     },
   },
