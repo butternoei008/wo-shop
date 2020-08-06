@@ -15,10 +15,11 @@
           prepend-inner-icon="mdi-magnify"
           style="max-width: 1000px"
           v-model="keyword"
+          v-on:keyup="searchProduct(keyword)"
         ></v-text-field>
       </v-row>
       <v-row>
-        <v-col v-for="product in allProduct" :key="product.id" md="3" sm="6">
+        <v-col v-for="product in products" :key="product.id" md="3" sm="6">
           <v-card>
             <v-img height="100%" :src="product.img"></v-img>
             <v-card-text>
@@ -66,6 +67,13 @@ export default {
   methods: {
     addProductToCart(product) {
       this.$store.dispatch(ADD_CART_PRODUCT, product);
+    },
+    searchProduct(keyword) {
+      if(this.keyword != '') {
+        this.products = this.allProduct.filter(product => product.name.includes(keyword))
+      } else {
+        this.products = this.allProduct
+      }
     }
   },
   filters: {

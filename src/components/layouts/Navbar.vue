@@ -35,9 +35,6 @@ export default {
       default: 0,
     },
   },
-  mounted() {
-    //   console.log('cartBage: ', this.cartBage)
-  },
   data: () => ({
     logo: logo,
   }),
