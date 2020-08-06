@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <h1>Am Cart</h1>
+    <h1>WO-Cart</h1>
     <v-card>
       <v-card-text>
         <v-simple-table>
@@ -13,16 +13,21 @@
             <tbody>
               <tr v-for="(item, index) in itemInCart" :key="index">
                 <td>
-                  <v-img width="100" :src="item.img" alt />
+                  <v-img width="100" :src="item.img" />
                 </td>
                 <td>{{ item.name }}</td>
                 <td>{{ item.price }}</td>
+                <td>
+                  <v-btn @click="removeCart(item.id)">
+                    <v-icon>mdi-trash-can-outline</v-icon>
+                  </v-btn>
+                </td>
               </tr>
             </tbody>
           </template>
         </v-simple-table>
-        <div class="text-right">
-           <h1>Total {{ total | totHB }}</h1>
+        <div class="text-right mt-2">
+          <h1>Total {{ total | totHB }}</h1>
         </div>
       </v-card-text>
     </v-card>
@@ -31,6 +36,7 @@
 
 <script>
 import { mapGetters } from "vuex";
+import { REMOVE_CART_PRODUCT } from '../store/actions.type'
 
 export default {
   name: "Cart",
@@ -40,6 +46,7 @@ export default {
         { text: "Image", value: "img" },
         { text: "Name", value: "name" },
         { text: "price", value: "price" },
+        { text: "action" },
       ],
     };
   },
@@ -50,6 +57,11 @@ export default {
         return total + parseFloat(item.price);
       }, 0);
     },
+  },
+  methods: {
+    removeCart(productId) {
+      this.$store.dispatch(REMOVE_CART_PRODUCT, productId)
+    }
   },
   filters: {
     totHB: (price) => {
